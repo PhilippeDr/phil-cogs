@@ -50,7 +50,7 @@ class Admin(MixinMeta):
             "`Downvote Emoji:     `{}\n"
             "`Show Vote Counts:   `{}\n"
             "`Suggestions:        `{}\n"
-            "`Rumour #:       `{}\n"
+            "`Suggestion #:       `{}\n"
         ).format(
             f"<#{conf.approved}>" if conf.approved else _("Not set"),
             f"<#{conf.rejected}>" if conf.rejected else _("Not set"),
@@ -486,7 +486,7 @@ class Admin(MixinMeta):
             await message.delete()
 
         try:
-            txt = _("Rumour #{}").format(number)
+            txt = _("Suggestion #{}").format(number)
             message = await approved_channel.send(txt, embed=embed)
         except discord.Forbidden:
             txt = _("I do not have the required permissions to send messages in the approved suggestions channel.")
@@ -517,7 +517,7 @@ class Admin(MixinMeta):
 
         del conf.suggestions[number]
 
-        await ctx.send(_("Rumour #{} has been approved.").format(number))
+        await ctx.send(_("Suggestion #{} has been approved.").format(number))
 
         await self.save()
 
@@ -603,7 +603,7 @@ class Admin(MixinMeta):
             await message.delete()
 
         try:
-            txt = _("Rumour #{}").format(number)
+            txt = _("Suggestion #{}").format(number)
             message = await rejected_channel.send(txt, embed=embed)
         except discord.Forbidden:
             txt = _("I do not have the required permissions to send messages in the denied suggestions channel.")
@@ -634,7 +634,7 @@ class Admin(MixinMeta):
 
         del conf.suggestions[number]
 
-        await ctx.send(_("Rumour #{} has been rejected.").format(number))
+        await ctx.send(_("Suggestion #{} has been rejected.").format(number))
 
         await self.save()
 
@@ -675,7 +675,7 @@ class Admin(MixinMeta):
 
         embed = discord.Embed(
             color=discord.Color.blue(),
-            title=_("Votes for Rumour #{}").format(number),
+            title=_("Votes for Suggestion #{}").format(number),
             description=description,
         )
 
