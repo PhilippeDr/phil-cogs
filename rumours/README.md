@@ -1,6 +1,6 @@
 # IdeaBoard Help
 
-Share Ideas and Suggestions.
+Share Ideas and Suggestions
 
 # idea (Hybrid Command)
  - Usage: `[p]idea <content>`
