@@ -7,5 +7,5 @@ __red_end_user_data_statement__ = get_end_user_data_statement(__file__)
 
 
 async def setup(bot: Red):
-    cog = IdeaBoard(bot)
+    cog = rumours(bot)
     await bot.add_cog(cog)
