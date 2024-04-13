@@ -91,18 +91,7 @@ class User(MixinMeta):
             )
             return await resp(txt)
 
-        # Check LevelUp requirement
-        try:
-            txt = _("You must be level {} or higher to make suggestions.\nUse the {} command to check your level.")
-            if conf.min_level_to_suggest and self.bot.get_cog("LevelUp"):
-                levelup = self.bot.get_cog("LevelUp")
-                if ctx.guild.id in levelup.data:
-                    levelup.init_user(ctx.guild.id, str(ctx.author.id))
-                    level = levelup.data[ctx.guild.id]["users"][str(ctx.author.id)]["level"]
-                    if level < conf.min_level_to_suggest:
-                        return await resp(txt.format(conf.min_level_to_suggest, f"`{ctx.clean_prefix}pf`"))
-        except Exception as e:
-            log.exception(f"Failed to check LevelUp requirement in {ctx.guild.name}", exc_info=e)
+
 
         # Check ArkTools requirement
         try:
@@ -182,14 +171,7 @@ class User(MixinMeta):
 
         profile.suggestions_made += 1
 
-        if ctx.invoked_with == "idea":
-            word = "idea"
-        else:
-            word = "suggestion"
-        if channel.permissions_for(ctx.author).view_channel:
-            txt = _("Your **[{}]({})** has been posted!").format(word, message.jump_url)
-        else:
-            txt = _("Your {} has been posted!").format(word)
+
 
         if ctx.interaction:
             try:
@@ -202,13 +184,7 @@ class User(MixinMeta):
                         await ctx.author.send(txt)
                     except discord.Forbidden:
                         await ctx.channel.send(txt)
-        else:
-            try:
-                await ctx.author.send(txt)
-            except discord.Forbidden:
-                await ctx.channel.send(txt, delete_after=10)
 
-        await self.save()
 
     @commands.hybrid_command(
         name="ideastats",

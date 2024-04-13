@@ -507,17 +507,7 @@ class Admin(MixinMeta):
             profile = conf.get_profile(uid)
             profile.losses += 1
 
-        member = ctx.guild.get_member(suggestion.author_id)
-        if member and conf.dm:
-            txt = _("Your [suggestion]({}) has been approved!").format(message.jump_url)
-            try:
-                await member.send(txt)
-            except discord.Forbidden:
-                pass
-
         del conf.suggestions[number]
-
-        await ctx.send(_("Rumour #{} has been approved.").format(number))
 
         await self.save()
 
@@ -624,13 +614,7 @@ class Admin(MixinMeta):
             profile = conf.get_profile(uid)
             profile.wins += 1
 
-        member = ctx.guild.get_member(suggestion.author_id)
-        if member and conf.dm:
-            txt = _("Your [suggestion]({}) has been rejected!").format(message.jump_url)
-            try:
-                await member.send(txt)
-            except discord.Forbidden:
-                pass
+
 
         del conf.suggestions[number]
 
