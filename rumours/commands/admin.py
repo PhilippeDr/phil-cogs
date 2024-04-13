@@ -142,7 +142,7 @@ class Admin(MixinMeta):
         channel: discord.TextChannel,
         channel_type: t.Literal["approved", "rejected", "pending"],
     ):
-        """Set the approved, rejected, or pending channels for IdeaBoard"""
+        """Set the approved, rejected, or pending channels for Rumours"""
         conf = self.db.get_conf(ctx.guild)
         if channel_type == "approved":
             conf.approved = channel.id
