@@ -156,7 +156,7 @@ class User(MixinMeta):
         suggestion_number = conf.counter + 1
         profile.last_suggestion = datetime.now()
 
-        count = _("Suggestion #{}").format(suggestion_number)
+        count = _("Rumours #{}").format(suggestion_number)
         # Create the suggestion embed
         embed = discord.Embed(color=discord.Color.blurple(), description=content)
         if conf.anonymous:
@@ -172,7 +172,7 @@ class User(MixinMeta):
         suggestion = Suggestion(id=suggestion_id, message_id=message.id, author_id=ctx.author.id)
         if conf.discussion_threads:
             try:
-                thread = await message.create_thread(name=f"Suggestion #{suggestion_number} Discussion")
+                thread = await message.create_thread(name=f"Rumours #{suggestion_number} Discussion")
                 suggestion.thread_id = thread.id
             except discord.Forbidden:
                 log.warning(f"Missing permissions to create a discussion thread in {ctx.guild}")
