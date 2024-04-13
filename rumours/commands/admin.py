@@ -20,16 +20,16 @@ _ = Translator("IdeaBoard", __file__)
 
 @cog_i18n(_)
 class Admin(MixinMeta):
-    @commands.group(name="ideaset", aliases=["ideaboard"])
+    @commands.group(name="rumours", aliases=["rumour"])
     @commands.admin_or_permissions(manage_guild=True)
     async def ideaset(self, ctx: commands.Context):
-        """Manage IdeaBoard settings"""
+        """Manage Rumour settings"""
         pass
 
     @ideaset.command(name="view")
     @commands.bot_has_permissions(embed_links=True)
     async def view_settings(self, ctx: commands.Context):
-        """View IdeaBoard settings"""
+        """View Rumour settings"""
         conf = self.db.get_conf(ctx.guild)
         vote_role_mentions = [ctx.guild.get_role(r).mention for r in conf.vote_roles if ctx.guild.get_role(r)]
         suggest_role_mentions = [ctx.guild.get_role(r).mention for r in conf.suggest_roles if ctx.guild.get_role(r)]
@@ -49,8 +49,8 @@ class Admin(MixinMeta):
             "`Upvote Emoji:       `{}\n"
             "`Downvote Emoji:     `{}\n"
             "`Show Vote Counts:   `{}\n"
-            "`Suggestions:        `{}\n"
-            "`Suggestion #:       `{}\n"
+            "`Rumours:            `{}\n"
+            "`Rumour #:           `{}\n"
         ).format(
             f"<#{conf.approved}>" if conf.approved else _("Not set"),
             f"<#{conf.rejected}>" if conf.rejected else _("Not set"),
@@ -69,7 +69,7 @@ class Admin(MixinMeta):
             description=main,
             color=ctx.author.color,
         )
-        embed.set_author(name=_("Ideaboard Settings"), icon_url=ctx.guild.icon)
+        embed.set_author(name=_("Rumour Settings"), icon_url=ctx.guild.icon)
 
         name = _("Cooldowns")
         value = _("Base: {0.base_cooldown} seconds\nRole Cooldowns: {1}").format(
@@ -79,7 +79,7 @@ class Admin(MixinMeta):
 
         name = _("Account Age")
         value = _(
-            "Minimum age of account to vote or suggest\n"
+            "Minimum age of account to vote or send a rumour\n"
             "Vote: {0.min_account_age_to_vote} hours\n"
             "Suggest: {0.min_account_age_to_suggest} hours"
         ).format(conf)
@@ -87,7 +87,7 @@ class Admin(MixinMeta):
 
         name = _("Join Time")
         value = _(
-            "Minimum time in server to vote or suggest\n"
+            "Minimum time in server to vote or send a rumour\n"
             "Vote: {0.min_join_time_to_vote} hours\n"
             "Suggest: {0.min_join_time_to_suggest} hours"
         ).format(conf)
@@ -120,7 +120,7 @@ class Admin(MixinMeta):
 
         name = _("LevelUp Integration")
         value = _(
-            "Minimum level required to vote or make suggestions.\n"
+            "Minimum level required to vote or send rumours.\n"
             "Vote: {0.min_level_to_vote}\n"
             "Suggest: {0.min_level_to_suggest}"
         ).format(conf)
@@ -412,7 +412,7 @@ class Admin(MixinMeta):
         conf = self.db.get_conf(ctx.guild)
         if not conf.approvers:
             txt = _("No approvers have been set! Use the {} command to add one.").format(
-                f"`{ctx.clean_prefix}ideaset approverole @role`"
+                f"`{ctx.clean_prefix}rumours approverole @role`"
             )
             return await ctx.send(txt)
         if not any(role in [role.id for role in ctx.author.roles] for role in conf.approvers):
@@ -519,7 +519,7 @@ class Admin(MixinMeta):
         conf = self.db.get_conf(ctx.guild)
         if not conf.approvers:
             txt = _("No approvers have been set! Use the {} command to add one.").format(
-                f"`{ctx.clean_prefix}ideaset approverole @role`"
+                f"`{ctx.clean_prefix}rumours approverole @role`"
             )
             return await ctx.send(txt)
         if not any(role in [role.id for role in ctx.author.roles] for role in conf.approvers):
@@ -530,7 +530,7 @@ class Admin(MixinMeta):
             txt = _("The pending suggestions channel has not been set!")
             return await ctx.send(txt)
         if not conf.rejected:
-            txt = _("The rejected suggestions channel has not been set!")
+            txt = _("The rejected rumour channel has not been set!")
             return await ctx.send(txt)
 
         pending_channel = ctx.guild.get_channel(conf.pending)
@@ -539,7 +539,7 @@ class Admin(MixinMeta):
             return await ctx.send(txt)
         rejected_channel = ctx.guild.get_channel(conf.rejected)
         if not rejected_channel:
-            txt = _("The rejected suggestions channel no longer exists!")
+            txt = _("The rejected rumour channel no longer exists!")
             return await ctx.send(txt)
 
         perms = [
@@ -572,7 +572,7 @@ class Admin(MixinMeta):
                     await thread.delete()
 
         content = message.embeds[0].description
-        embed = discord.Embed(color=discord.Color.red(), description=content, title=_("Rejected Suggestion"))
+        embed = discord.Embed(color=discord.Color.red(), description=content, title=_("Rejected rumour"))
         if conf.anonymous and not conf.reveal:
             embed.set_footer(text=_("Suggested anonymously"))
         elif author := ctx.guild.get_member(suggestion.author_id):
@@ -633,7 +633,7 @@ class Admin(MixinMeta):
 
         if not conf.approvers:
             txt = _("No approvers have been set! Use the {} command to add one.").format(
-                f"`{ctx.clean_prefix}ideaset approverole @role`"
+                f"`{ctx.clean_prefix}rumours approverole @role`"
             )
             return await ctx.send(txt)
 

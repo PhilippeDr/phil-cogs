@@ -87,7 +87,7 @@ class User(MixinMeta):
 
         if not conf.approvers:
             txt = _("No approvers have been set! Admins needs to use the {} command to add one.").format(
-                f"`{ctx.clean_prefix}ideaset approverole @role`"
+                f"`{ctx.clean_prefix}rumours approverole @role`"
             )
             return await resp(txt)
 
