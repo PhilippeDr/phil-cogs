@@ -168,7 +168,7 @@ class Admin(MixinMeta):
         """
         Toggle reveal suggestion author on approval
 
-        Approved suggestions are ALWAYS revealed regardless of this setting.
+        Approved rumours are ALWAYS revealed regardless of this setting.
         """
         conf = self.db.get_conf(ctx.guild)
         conf.reveal = not conf.reveal
@@ -423,7 +423,7 @@ class Admin(MixinMeta):
             txt = _("The pending suggestions channel has not been set!")
             return await ctx.send(txt)
         if not conf.approved:
-            txt = _("The approved suggestions channel has not been set!")
+            txt = _("The approved rumours channel has not been set!")
             return await ctx.send(txt)
 
         pending_channel = ctx.guild.get_channel(conf.pending)
@@ -432,7 +432,7 @@ class Admin(MixinMeta):
             return await ctx.send(txt)
         approved_channel = ctx.guild.get_channel(conf.approved)
         if not approved_channel:
-            txt = _("The approved suggestions channel no longer exists!")
+            txt = _("The approved rumours channel no longer exists!")
             return await ctx.send(txt)
 
         perms = [
@@ -465,7 +465,7 @@ class Admin(MixinMeta):
                     await thread.delete()
 
         content = message.embeds[0].description
-        embed = discord.Embed(color=discord.Color.green(), description=content, title=_("Approved Suggestion"))
+        embed = discord.Embed(color=discord.Color.green(), description=content, title=_("Approved Rumour"))
         if author := ctx.guild.get_member(suggestion.author_id):
             foot = _("Suggested by {}").format(f"{author.name} ({author.id})")
             embed.set_footer(text=foot, icon_url=author.display_avatar)
@@ -489,10 +489,10 @@ class Admin(MixinMeta):
             txt = _("Rumour #{}").format(number)
             message = await approved_channel.send(txt, embed=embed)
         except discord.Forbidden:
-            txt = _("I do not have the required permissions to send messages in the approved suggestions channel.")
+            txt = _("I do not have the required permissions to send messages in the approved rumours channel.")
             return await ctx.send(txt)
         except discord.NotFound:
-            txt = _("The approved suggestions channel no longer exists!")
+            txt = _("The approved rumours channel no longer exists!")
             return await ctx.send(txt)
 
         # Add stats to users before deleting the suggestion from config
