@@ -486,7 +486,7 @@ class Admin(MixinMeta):
             await message.delete()
 
         try:
-            txt = _("Suggestion #{}").format(number)
+            txt = _("Rumour #{}").format(number)
             message = await approved_channel.send(txt, embed=embed)
         except discord.Forbidden:
             txt = _("I do not have the required permissions to send messages in the approved suggestions channel.")
@@ -517,7 +517,7 @@ class Admin(MixinMeta):
 
         del conf.suggestions[number]
 
-        await ctx.send(_("Suggestion #{} has been approved.").format(number))
+        await ctx.send(_("Rumour #{} has been approved.").format(number))
 
         await self.save()
 
@@ -603,7 +603,7 @@ class Admin(MixinMeta):
             await message.delete()
 
         try:
-            txt = _("Suggestion #{}").format(number)
+            txt = _("Rumour #{}").format(number)
             message = await rejected_channel.send(txt, embed=embed)
         except discord.Forbidden:
             txt = _("I do not have the required permissions to send messages in the denied suggestions channel.")
@@ -633,8 +633,6 @@ class Admin(MixinMeta):
                 pass
 
         del conf.suggestions[number]
-
-        await ctx.send(_("Suggestion #{} has been rejected.").format(number))
 
         await self.save()
 
@@ -675,7 +673,7 @@ class Admin(MixinMeta):
 
         embed = discord.Embed(
             color=discord.Color.blue(),
-            title=_("Votes for Suggestion #{}").format(number),
+            title=_("Votes for Rumour #{}").format(number),
             description=description,
         )
 

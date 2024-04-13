@@ -156,11 +156,11 @@ class User(MixinMeta):
         suggestion_number = conf.counter + 1
         profile.last_suggestion = datetime.now()
 
-        count = _("Rumours #{}").format(suggestion_number)
+        count = _("").format(suggestion_number)
         # Create the suggestion embed
         embed = discord.Embed(color=discord.Color.blurple(), description=content)
         if conf.anonymous:
-            embed.set_footer(text=_("Posted anonymously"))
+            embed.set_footer(text=_("Rumour #{}").format(suggestion_number))
         else:
             text = _("Posted by {}").format(f"{ctx.author.name} ({ctx.author.id})")
             embed.set_footer(text=text, icon_url=ctx.author.display_avatar)
