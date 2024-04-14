@@ -171,7 +171,7 @@ class VoteView(discord.ui.View):
             txt = _("You cannot vote on your own rumour.")
             return await self.respond(interaction, txt)
         elif uid in suggestion.downvotes:
-            txt = _("You have switched your downvote to an upvote.")
+            txt = _("You have switched your reaction to 😎")
             suggestion.upvotes.append(uid)
             suggestion.downvotes.remove(uid)
             profile.upvotes += 1
@@ -208,7 +208,7 @@ class VoteView(discord.ui.View):
             txt = _("You cannot vote on your own rumour.")
             return await self.respond(interaction, txt)
         elif uid in suggestion.upvotes:
-            txt = _("You have switched your reaction to a 🤨.")
+            txt = _("You have switched your reaction to 🤨")
             suggestion.upvotes.remove(uid)
             suggestion.downvotes.append(uid)
             profile.upvotes -= 1
