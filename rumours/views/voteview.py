@@ -65,7 +65,7 @@ class VoteView(discord.ui.View):
         conf = self.cog.db.get_conf(self.guild)
         suggestion = conf.suggestions.get(self.suggestion_number)
         if not suggestion:
-            txt = _("This suggestion no longer exists in the config!")
+            txt = _("This rumour no longer exists in the config!")
             await self.respond(interaction, txt)
             return False
 
@@ -168,7 +168,7 @@ class VoteView(discord.ui.View):
         suggestion = conf.suggestions[self.suggestion_number]
         uid = interaction.user.id
         if uid == suggestion.author_id:
-            txt = _("You cannot vote on your own suggestion.")
+            txt = _("You cannot vote on your own rumour.")
             return await self.respond(interaction, txt)
         elif uid in suggestion.downvotes:
             txt = _("You have switched your downvote to an upvote.")
@@ -177,11 +177,11 @@ class VoteView(discord.ui.View):
             profile.upvotes += 1
             profile.downvotes -= 1
         elif uid in suggestion.upvotes:
-            txt = _("You have removed your upvote.")
+            txt = _("You have removed your reaction.")
             suggestion.upvotes.remove(uid)
             profile.upvotes -= 1
         else:
-            txt = _("You have upvoted this suggestion.")
+            txt = _("You have reacted this rumour.")
             suggestion.upvotes.append(uid)
             profile.upvotes += 1
 
@@ -205,20 +205,20 @@ class VoteView(discord.ui.View):
         suggestion = conf.suggestions[self.suggestion_number]
         uid = interaction.user.id
         if uid == suggestion.author_id:
-            txt = _("You cannot vote on your own suggestion.")
+            txt = _("You cannot vote on your own rumour.")
             return await self.respond(interaction, txt)
         elif uid in suggestion.upvotes:
-            txt = _("You have switched your upvote to a downvote.")
+            txt = _("You have switched your reaction to a 🤨.")
             suggestion.upvotes.remove(uid)
             suggestion.downvotes.append(uid)
             profile.upvotes -= 1
             profile.downvotes += 1
         elif uid in suggestion.downvotes:
-            txt = _("You have removed your downvote.")
+            txt = _("You have removed your reaction.")
             suggestion.downvotes.remove(uid)
             profile.downvotes -= 1
         else:
-            txt = _("You have downvoted this suggestion.")
+            txt = _("You have reacted to this rumour.")
             suggestion.downvotes.append(uid)
             profile.downvotes += 1
 
