@@ -187,7 +187,7 @@ class User(MixinMeta):
 
 
     @commands.hybrid_command(
-        name="ideastats",
+        name="rumoursstats",
         description=_("View your profile stats regarding suggestions and votes."),
     )
     @commands.guild_only()
