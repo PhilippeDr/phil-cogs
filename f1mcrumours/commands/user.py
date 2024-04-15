@@ -20,7 +20,7 @@ _ = Translator("Rumours", __file__)
 
 @cog_i18n(_)
 class User(MixinMeta):
-    @commands.hybrid_command(name="idea", aliases=["suggest"], description=_("Share an idea/make a suggestion."))
+    @commands.hybrid_command(name="sendrumours", aliases=["sendrumour"], description=_("Share an idea/make a suggestion."))
     @app_commands.describe(content="Your idea or suggestion")
     @commands.guild_only()
     @commands.bot_has_guild_permissions(send_messages=True, embed_links=True, create_public_threads=True)
