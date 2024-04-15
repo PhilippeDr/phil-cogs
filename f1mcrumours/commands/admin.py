@@ -404,7 +404,7 @@ class Admin(MixinMeta):
         )
         await self.save()
 
-    @commands.hybrid_command(name="approve", description=_("Approve a suggestion."))
+    @commands.hybrid_command(name="rumourapprove", description=_("Approve a suggestion."))
     @app_commands.describe(number=_("Suggestion number"))
     @commands.guild_only()
     async def approve_suggestion(self, ctx: commands.Context, number: int, *, reason: str = None):
@@ -511,7 +511,7 @@ class Admin(MixinMeta):
 
         await self.save()
 
-    @commands.hybrid_command(name="reject", description=_("Reject a suggestion."))
+    @commands.hybrid_command(name="rumourreject", description=_("Reject a suggestion."))
     @app_commands.describe(number=_("Suggestion number"))
     @commands.guild_only()
     async def reject_suggestion(self, ctx: commands.Context, number: int, *, reason: str = None):
