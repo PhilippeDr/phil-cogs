@@ -9,8 +9,8 @@ from redbot.core.utils.chat_formatting import humanize_timedelta
 
 from ..abc import MixinMeta
 
-log = logging.getLogger("red.vrt.ideaboard.views.voteview")
-_ = Translator("IdeaBoard", __file__)
+log = logging.getLogger("red.vrt.rumours.views.voteview")
+_ = Translator("Rumours", __file__)
 
 
 class VoteView(discord.ui.View):

@@ -5,7 +5,7 @@ from redbot.core import commands
 
 from ..abc import MixinMeta
 
-log = logging.getLogger("red.vrt.ideaboard.listeners")
+log = logging.getLogger("red.vrt.rumours.listeners")
 
 
 class AssistantListener(MixinMeta):

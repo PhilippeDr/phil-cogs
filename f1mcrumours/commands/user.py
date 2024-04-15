@@ -14,8 +14,8 @@ from ..abc import MixinMeta
 from ..common.models import Suggestion
 from ..views.voteview import VoteView
 
-log = logging.getLogger("red.vrt.ideaboard.commands.user")
-_ = Translator("IdeaBoard", __file__)
+log = logging.getLogger("red.vrt.rumours.commands.user")
+_ = Translator("Rumours", __file__)
 
 
 @cog_i18n(_)

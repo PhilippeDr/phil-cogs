@@ -14,8 +14,8 @@ from redbot.core.utils.predicates import MessagePredicate
 from ..abc import MixinMeta
 from ..common.models import Profile
 
-log = logging.getLogger("red.vrt.ideaboard.commands.admin")
-_ = Translator("IdeaBoard", __file__)
+log = logging.getLogger("red.vrt.rumours.commands.admin")
+_ = Translator("Rumours", __file__)
 
 
 @cog_i18n(_)

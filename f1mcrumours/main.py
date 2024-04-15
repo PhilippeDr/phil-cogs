@@ -10,12 +10,12 @@ from .common.listener import AssistantListener
 from .common.models import DB
 from .views.voteview import VoteView
 
-log = logging.getLogger("red.vrt.ideaboard")
+log = logging.getLogger("red.vrt.rumours")
 
 # redgettext -D views/voteview.py commands/user.py commands/admin.py --command-docstring
 
 
-class IdeaBoard(Commands, AssistantListener, commands.Cog, metaclass=CompositeMetaClass):
+class Rumours(Commands, AssistantListener, commands.Cog, metaclass=CompositeMetaClass):
     """Share Ideas and Suggestions"""
 
     __author__ = "vertyco"
