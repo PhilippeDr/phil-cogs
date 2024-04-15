@@ -132,11 +132,12 @@ class User(MixinMeta):
                     cooldown = min(cooldowns.values())
 
             if delta.total_seconds() < cooldown:
-                return await resp(
-                    _("You must wait `{}` before making another suggestion.").format(
+                return 
+            else:
+                 (
                         humanize_timedelta(seconds=cooldown - delta.total_seconds())
                     )
-                )
+                
 
         if ctx.channel.permissions_for(ctx.me).manage_messages:
             with suppress(discord.NotFound, discord.Forbidden):
